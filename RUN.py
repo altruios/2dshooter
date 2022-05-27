@@ -254,8 +254,9 @@ def main():
         check_box_fov,
         check_box_ultra,
         check_box_fs,
-
-
+    ]
+    text_boxes=[
+        textbox_name,
     ]
     game_state = {
         "selected_map":selected_map,
@@ -267,8 +268,11 @@ def main():
         "background_tick":background_tick,
         "background_vel":background_vel,
         "checked_boxes":[],
+        "info":info,
         "get_mouse_pos":app.pygame.mouse.get_pos,#ref to func to call from menue
-        "mouse_pos":app.pygame.mouse.get_pos()
+        "mouse_pos":app.pygame.mouse.get_pos(),
+        "glitch":glitch,
+        "mouse_single_tick":False,
         }
 
 
@@ -281,7 +285,7 @@ def main():
         terminal1=terminal,
         terminal2=terminal2,
         particle_list=particle_list,
-
+        text_boxes=text_boxes
         )
 
 
@@ -361,25 +365,6 @@ def main():
 
         for x in particle_list:
             x.tick(screen, [0,0])
-
-        if menu_status == "start":
-            screen.blit(info, [20,150])
-
-            s1 = button_sp_menu.tick(screen, mouse_pos, mouse_single_tick, glitch)
-            s2= button_mp_menu.tick(screen, mouse_pos, mouse_single_tick, glitch)
-            s3 = button_settings.tick(screen, mouse_pos, mouse_single_tick, glitch)
-            button_quit_game.tick(screen, mouse_pos, mouse_single_tick, glitch)
-
-            if s1 != None:
-                menu_status = s1
-                mouse_single_tick = False
-            if s2 != None:
-                menu_status  = s2
-                mouse_single_tick = False
-
-            if s3 != None:
-                menu_status  = s3
-                mouse_single_tick = False
 
         if menu_status == "settings":
 
