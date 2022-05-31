@@ -179,8 +179,8 @@ def main():
     buttonUpnp = Button([x_s,280], "dev-test-upnp", upnp_menu, "upnp_menu",gameInstance=app.pygame,glitchInstance=glitch)
 
 
-    button_start_sp = Button([140,70], "START GAME", start_mp_game, None,gameInstance=app.pygame,glitchInstance=glitch)
-    button_start_mp = Button([140,70], "START GAME", start_sp, difficulty,gameInstance=app.pygame,glitchInstance=glitch)
+    button_start_sp = Button([140,70], "START GAME", start_sp, None,gameInstance=app.pygame,glitchInstance=glitch)
+    button_start_mp = Button([140,70], "START GAME", start_mp_game, difficulty,gameInstance=app.pygame,glitchInstance=glitch)
     button_host_quit = Button([68,130], "Back", kill_server, None,gameInstance=app.pygame,glitchInstance=glitch)
     button_client_quit = Button([68,130], "Back", main_menu, None,gameInstance=app.pygame,glitchInstance=glitch)
 
@@ -188,12 +188,19 @@ def main():
     buttonUpnpBack = Button([x_s,220], "Back", start_mp, None,gameInstance=app.pygame,glitchInstance=glitch)
 
     check_box_difficulties = []
-
+    checkboxes=[
+            check_box_dev_commands,
+            check_box_inter,
+            check_box_fov,
+            check_box_ultra,
+            check_box_fs,
+        ]
     for text, y_pos in [["NO ENEMIES", 200], ["NORMAL", 240], ["HARD",280], ["ONSLAUGHT", 320]]:
         box = hud_elements.Checkbox(screen, 20,y_pos, caption = text, font_color = [255,255,255], text_offset = [40,5], cant_uncheck = True)
 
         if text == "NORMAL":
             box.__dict__["checked"] = True
+        checkboxes.append(box)
         check_box_difficulties.append(box)
 
 
@@ -231,29 +238,21 @@ def main():
     net = None
     background_vel = 0
     buttons =[
-        button_sp_menu,
-        button_mp_menu,
-        button_settings,
-        button_host_game,
-        button_join_game,
-        button_start_mp,
-        buttonUpnp,
-        button_start_sp,
-        button_start_mp,
-        button_host_quit,
-        button_client_quit,
-        buttonUpnpTest,
-        buttonUpnpBack,
-        button_back,
-        button_quit_game,
-    ]
-    checkboxes=[
-        check_box_difficulties,
-        check_box_dev_commands,
-        check_box_inter,
-        check_box_fov,
-        check_box_ultra,
-        check_box_fs,
+        button_sp_menu,#0
+        button_mp_menu,#1
+        button_settings,#2
+        button_host_game,#3
+        button_join_game,#4
+        button_start_mp,#5
+        buttonUpnp,#6
+        button_start_sp,#7
+        button_start_mp,#8
+        button_host_quit,#9
+        button_client_quit,#10
+        buttonUpnpTest,#11
+        buttonUpnpBack,#12
+        button_back,#13
+        button_quit_game,#14
     ]
     text_boxes=[
         textbox_name,
@@ -262,8 +261,10 @@ def main():
         "selected_map":selected_map,
         "players":players,
         "hostname":hostname,
+        "host":host,
         "ip":ip_address,
         "port":port,
+        "net":net,
         "difficulty":difficulty,
         "background_tick":background_tick,
         "background_vel":background_vel,
@@ -273,6 +274,13 @@ def main():
         "mouse_pos":app.pygame.mouse.get_pos(),
         "glitch":glitch,
         "mouse_single_tick":False,
+        "appIP":app.ip,
+        "_app_ref":app,
+        "exit":False,
+        "maps_dict":maps_dict,
+        "draw":app.pygame.draw,
+        "click_sound":menu_click2,
+        "full_screen_mode":full_screen_mode
         }
 
 
